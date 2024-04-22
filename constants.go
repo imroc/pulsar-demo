@@ -7,4 +7,5 @@ const (
 	TOKEN            = "token"
 	SUBSCRIPTION     = "subscription"
 	CONSUME_DURATION = "consume-duration"
+	PRODUCE_DURATION = "produce-duration"
 )

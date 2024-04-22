@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"errors"
 	"log"
+	"time"
 
 	"github.com/apache/pulsar-client-go/pulsar"
 	"github.com/spf13/cobra"
@@ -13,6 +13,7 @@ import (
 func init() {
 	registerStringParameter(producerCmd.Flags(), TOPIC, "", "topic of pulsar producer")
 	registerIntParameterP(producerCmd.Flags(), MESSAGES, "n", 0, "number of messages to send")
+	registerStringParameter(producerCmd.Flags(), PRODUCE_DURATION, "1s", "duration of each message to produce")
 }
 
 var producerCmd = &cobra.Command{
@@ -39,18 +40,32 @@ func GetProuducer() pulsar.Producer {
 }
 
 func runProducer() error {
+	interval := viper.GetDuration(PRODUCE_DURATION)
 	n := viper.GetInt(MESSAGES)
-	if n <= 0 {
-		return errors.New("no messsages need to send")
-	}
 	producer := GetProuducer()
+
 	payload := []byte(`{"msg": "test"}`)
+
 	log.Println("msg send start")
-	for i := 0; i < n; i++ {
+	for i := 1; ; i++ {
 		log.Println("send msg", i)
-		producer.Send(context.Background(), &pulsar.ProducerMessage{
+		_, err := producer.Send(context.Background(), &pulsar.ProducerMessage{
 			Payload: payload,
 		})
+		if err != nil {
+			log.Println("Send error:", err)
+			continue
+		}
+		time.Sleep(interval)
+		if n <= 0 {
+			continue
+		} else {
+			if i <= n {
+				continue
+			} else {
+				break
+			}
+		}
 	}
 	log.Println("msg send end")
 	return nil
