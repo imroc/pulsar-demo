@@ -21,5 +21,5 @@ RUN apk add --no-cache tzdata ca-certificates
 
 COPY --from=build /workspace/pulsar-demo /usr/local/bin/pulsar-demo
 
-CMD ["keda-tencentcloud-clb-scaler"]
+ENTRYPOINT ["pulsar-demo"]
 
