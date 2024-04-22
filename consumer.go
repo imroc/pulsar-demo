@@ -52,5 +52,10 @@ func runConsumer() {
 			continue
 		}
 		log.Printf("received msg (id:%s): %s\n", msg.ID(), string(msg.Payload()))
+		err = consumer.AckID(msg.ID())
+		if err != nil {
+			log.Println("ERROR:", err)
+			continue
+		}
 	}
 }
