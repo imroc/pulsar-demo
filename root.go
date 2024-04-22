@@ -10,7 +10,7 @@ func init() {
 	fs := rootCmd.PersistentFlags()
 	registerStringParameter(fs, URL, "", "pulsar url")
 	registerStringParameter(fs, TOKEN, "", "pulsar authentication jwt token")
-	rootCmd.AddCommand(producerCmd)
+	rootCmd.AddCommand(producerCmd, consumerCmd)
 }
 
 var rootCmd = &cobra.Command{

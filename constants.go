@@ -1,8 +1,9 @@
 package main
 
 const (
-	TOPIC    = "topic"
-	MESSAGES = "messages"
-	URL      = "url"
-	TOKEN    = "token"
+	TOPIC        = "topic"
+	MESSAGES     = "messages"
+	URL          = "url"
+	TOKEN        = "token"
+	SUBSCRIPTION = "subscription"
 )
