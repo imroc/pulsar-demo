@@ -2,9 +2,9 @@
 
 A simple demo app of Apache Pulsar.
 
-## Image
+## Docker Image
 
-Docker image is auto build and push to dockerhub: [imroc/pulsar-demo](https://hub.docker.com/r/imroc/pulsar-demo)
+Docker image is auto build hosted on dockerhub: [imroc/pulsar-demo](https://hub.docker.com/r/imroc/pulsar-demo)
 
 ## Examples
 
