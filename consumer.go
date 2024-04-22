@@ -61,6 +61,7 @@ func runConsumer() {
 		if err != nil {
 			return err
 		}
+		log.Printf("msg complete (id:%s)\n", msg.ID())
 		return nil
 	}
 	if n <= 0 {
