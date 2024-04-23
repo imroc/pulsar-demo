@@ -1,0 +1,25 @@
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: consumer-scaledobject
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: consumer
+  pollingInterval: 15
+  idleReplicaCount: 0
+  minReplicaCount: 1
+  maxReplicaCount: 10
+  triggers:
+    - type: pulsar
+      metadata:
+        adminURL: http://pulsar-************.tdmq.ap-cd.qcloud.tencenttdmq.com:5005
+        topic: persistent://pulsar-************/test/persist-topic
+        subscription: my-sub
+        isPartitionedTopic: "true"
+        msgBacklogThreshold: "5"
+        activationMsgBacklogThreshold: "1"
+        authModes: bearer
+      authenticationRef:
+        name: consumer-auth

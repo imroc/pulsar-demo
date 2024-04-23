@@ -1,0 +1,9 @@
+apiVersion: keda.sh/v1alpha1
+kind: TriggerAuthentication
+metadata:
+  name: consumer-auth
+spec:
+  secretTargetRef:
+    - parameter: bearerToken
+      name: consumer-secret
+      key: TOKEN

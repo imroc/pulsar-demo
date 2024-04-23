@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: consumer
+  template:
+    metadata:
+      labels:
+        app: consumer
+    spec:
+      containers:
+        - name: consumer
+          image: imroc/pulsar-demo:main
+          imagePullPolicy: Always
+          args:
+            - consumer
+            - --consume-duration
+            - 10s
+          envFrom:
+            - secretRef:
+                name: consumer-secret
+      terminationGracePeriodSeconds: 1

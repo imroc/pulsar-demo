@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: producer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: producer
+  template:
+    metadata:
+      labels:
+        app: producer
+    spec:
+      containers:
+        - name: producer
+          image: imroc/pulsar-demo:main
+          imagePullPolicy: Always
+          args:
+            - producer
+            - --produce-duration
+            - 2s
+          envFrom:
+            - secretRef:
+                name: producer-secret
+      terminationGracePeriodSeconds: 1
